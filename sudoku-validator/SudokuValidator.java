@@ -7,6 +7,7 @@ import java.util.Scanner;
 
    I believe there is some error in test #7 of 14
    Check TestValidator.java and hyperskill-3785-test-07.txt in this same folder for more details.
+   Revision: There is no error in test #7. It was supposed to be NO
 
    My first solution passed because it was checking both row and column and making sure it doesn't exceed 2 occurrences
    for a number. Then I thought it would be possible to have 2 occurrences in column and 0 in row and vice-versa.
@@ -68,16 +69,23 @@ public class SudokuValidator {
 				++j;
 			}
 			//This is the correct implementation but unfortunately it fails because
-			//of bad test #7 of 14
+            		//of bad test #7 of 14
+            		//REVISION: This is also incorrect check below why
 			/*if ((rowCounter != 1) && (columnCounter != 1)) {
-			  return "NO";
-			  }*/
-
-			//The problem with this is we can have columnCounter = 2 and rowCounter = 0 and it would still pass
-			//It should be 1 occurrence for each row and column
-			if (rowCounter + columnCounter != 2) {
 				return "NO";
-			}
+			 }*/
+
+            		//The problem with this is we can have columnCounter = 2 and rowCounter = 0 and it would still pass
+            		//It should be 1 occurrence for each row and column. But for some reason it works
+            		/*if (rowCounter + columnCounter != 2) {
+                		return "NO";
+            		}*/
+
+            		//This is the correct implementation instead of && it should have been ||
+            		if (rowCounter != 1 || columnCounter != 1) {
+                		return "NO";
+            		}
+			    
 			++i;
 		}
 		return "YES";
